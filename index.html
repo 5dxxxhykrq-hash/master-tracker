@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="2027 欧洲商科硕士申请进度、截止日期与材料管理。" />
+  <title>Master's Application Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="返回顶部">
+      <span class="brand-mark">MT</span>
+      <span><strong>Master Tracker</strong><small>2027 ENTRY · EUROPE</small></span>
+    </a>
+    <nav aria-label="页面导航">
+      <a href="#timeline">时间轴</a><a href="#programs">项目</a><a href="#sources">来源</a>
+    </nav>
+    <button class="reset-btn" id="resetBtn" type="button">重置本地状态</button>
+  </header>
+
+  <main id="top">
+    <section class="overview shell" aria-labelledby="overview-title">
+      <div class="eyebrow">APPLICATION CONTROL ROOM</div>
+      <div class="overview-grid">
+        <div>
+          <h1 id="overview-title">硕士申请总控台</h1>
+          <p>6 个欧洲商科项目，一条完整申请时间线。官方未发布的 2027 日期会明确标注为“待公布”，不会与已确认日期混淆。</p>
+        </div>
+        <div class="stats" aria-label="申请统计">
+          <div><strong id="overallProgress">0%</strong><span>总完成度</span></div>
+          <div><strong>6</strong><span>目标项目</span></div>
+          <div><strong id="nextCount">0</strong><span>待推进项目</span></div>
+        </div>
+      </div>
+      <div class="global-progress"><span id="globalProgressBar"></span></div>
+      <div class="legend"><span><i class="dot confirmed"></i>官网已确认</span><span><i class="dot rolling"></i>滚动录取</span><span><i class="dot pending"></i>2027 日期待公布</span></div>
+    </section>
+
+    <section class="timeline-section shell" id="timeline" aria-labelledby="timeline-title">
+      <div class="section-heading"><div><span>01</span><h2 id="timeline-title">申请时间轴</h2></div><p>横向滚动查看；点击节点可跳到对应项目。</p></div>
+      <div class="timeline-wrap">
+        <div class="months" aria-hidden="true"><span>SEP 26</span><span>NOV 26</span><span>JAN 27</span><span>MAR 27</span><span>MAY 27</span><span>JUL 27</span><span>SEP 27</span></div>
+        <div class="timeline-line"></div>
+        <div class="timeline-items" id="timelineItems"></div>
+      </div>
+      <aside class="priority-note"><strong>建议内部目标：</strong><span>所有滚动录取项目尽量在 2027 年 1 月前完成；UB 按正式轮次推进；Bologna 不要因为官方截止较晚而拖到夏季。</span></aside>
+    </section>
+
+    <section class="programs-section shell" id="programs" aria-labelledby="programs-title">
+      <div class="section-heading"><div><span>02</span><h2 id="programs-title">项目工作区</h2></div><div class="filters" role="group" aria-label="项目筛选"><button class="active" data-filter="all">全部</button><button data-filter="reach">冲刺</button><button data-filter="target">主申</button><button data-filter="safe">稳妥 / 保底</button></div></div>
+      <div class="program-list" id="programList"></div>
+    </section>
+
+    <section class="sources shell" id="sources" aria-labelledby="sources-title">
+      <div class="section-heading"><div><span>03</span><h2 id="sources-title">核验说明</h2></div><p>资料核验日期：2026-09-17</p></div>
+      <div class="source-card">
+        <p>网站以学校官方项目页与招生页为主。当前多数学校尚未完整公布 2027 intake 的日历，因此页面把“官网确认”“上一周期参考”和“待公布”分开显示。递交前仍需再次打开每张卡片中的官网链接核验。</p>
+        <div id="sourceLinks" class="source-links"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>MASTER TRACKER · 2027</span><span>状态仅保存在当前浏览器</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>
