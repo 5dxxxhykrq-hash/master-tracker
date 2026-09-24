@@ -1,6 +1,5 @@
 const START_HOUR = 9;
 const END_HOUR = 19;
-const HOUR_PX = 72;
 const days = [
   {key:"mon", label:"MON", zh:"周一"},
   {key:"tue", label:"TUE", zh:"周二"},
@@ -31,12 +30,15 @@ const colors = {
 
 let currentFilter = "all";
 
+function hourPx(){
+  return window.matchMedia("(max-width: 760px)").matches ? 66 : 72;
+}
 function minutes(t){
   const [h,m] = t.split(":").map(Number);
   return (h-START_HOUR)*60+m;
 }
-function position(t){ return minutes(t)/60*HOUR_PX; }
-function duration(s,e){ return (minutes(e)-minutes(s))/60*HOUR_PX; }
+function position(t){ return minutes(t)/60*hourPx(); }
+function duration(s,e){ return (minutes(e)-minutes(s))/60*hourPx(); }
 
 function buildGrid(){
   const grid = document.getElementById("calendarGrid");
@@ -54,7 +56,8 @@ function buildGrid(){
   time.className="time-col";
   for(let h=START_HOUR;h<=END_HOUR;h++){
     const l=document.createElement("div");
-    l.className="time-label"; l.style.top=((h-START_HOUR)*HOUR_PX)+"px";
+    l.className="time-label";
+    l.style.top=((h-START_HOUR)*hourPx())+"px";
     l.textContent=String(h).padStart(2,"0")+":00";
     time.appendChild(l);
   }
@@ -128,6 +131,12 @@ document.querySelectorAll(".view-btn").forEach(btn=>{
     document.getElementById("gridView").classList.toggle("hidden",!grid);
     document.getElementById("agendaView").classList.toggle("hidden",grid);
   });
+});
+
+let resizeTimer;
+window.addEventListener("resize",()=>{
+  clearTimeout(resizeTimer);
+  resizeTimer=setTimeout(buildGrid,120);
 });
 
 buildGrid();
