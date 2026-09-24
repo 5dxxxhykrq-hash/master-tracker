@@ -9,18 +9,23 @@ const days = [
 ];
 
 const events = [
-  {day:"mon",start:"14:00",end:"16:00",title:"课程名待确认",category:"pending",meta:"NetTable 显示 Seminar · 可能为选修 / 旁听"},
-  {day:"mon",start:"16:00",end:"18:00",title:"课程名待确认",category:"pending",meta:"NetTable 显示 Lecture · 可能为选修 / 旁听"},
-  {day:"tue",start:"11:00",end:"13:00",title:"课程名待确认",category:"pending",meta:"NetTable 显示 Lecture · 请之后补课程名"},
+  {day:"mon",start:"14:00",end:"16:00",title:"Foundations of Buddhist Philosophy",code:"PHIL0215",category:"audit",meta:"旁听 · Term 1"},
+  {day:"mon",start:"16:00",end:"18:00",title:"Entrepreneurship in a Global Context",code:"MSIN0060",category:"entrepreneurship",meta:"Lecture · Term 1"},
+
   {day:"tue",start:"14:00",end:"17:00",title:"Critical Issues",code:"ANTH0127",category:"core",meta:"必修 · 3 hr"},
-  {day:"wed",start:"11:00",end:"13:00",title:"Social Anthropology Seminars",category:"seminar",meta:"系内 seminar series · 2 hr"},
+  {day:"tue",start:"17:00",end:"18:30",title:"Dissertation Workshop",code:"ANTH0145",category:"core",meta:"Week 9 only"},
+
+  {day:"wed",start:"11:00",end:"13:00",title:"Oceans, Life and Climate",code:"GEOL0044",category:"audit",meta:"旁听 · Lecture"},
+  {day:"wed",start:"11:00",end:"13:00",title:"Social Anthropology Seminars",category:"seminar",meta:"系内 seminar series · 与 GEOL0044 同时段"},
   {day:"wed",start:"17:00",end:"19:00",title:"Explore Your Entrepreneurial Idea",category:"entrepreneurship",meta:"BaseKX · 28 Oct + 4/11/18 Nov only"},
-  {day:"thu",start:"09:00",end:"11:00",title:"Primate Behaviour & Ecology",code:"ANTH0060",category:"elective",meta:"选修 · 2 hr"},
-  {day:"thu",start:"14:00",end:"16:00",title:"Primate Behaviour & Ecology",code:"ANTH0060",category:"elective",meta:"选修 · 2 hr"},
-  {day:"fri",start:"09:00",end:"10:00",title:"Method in Ethnography",code:"ANTH0130",category:"core",meta:"必修 · Lecture"},
-  {day:"fri",start:"10:00",end:"12:00",title:"Method in Ethnography",code:"ANTH0130",category:"pending",meta:"Seminar allocation / clash · 待确认组别"},
-  {day:"fri",start:"12:00",end:"14:00",title:"Method in Ethnography",code:"ANTH0130",category:"pending",meta:"Alternative seminar slot / clash"},
-  {day:"fri",start:"15:00",end:"17:00",title:"课程名待确认",category:"pending",meta:"NetTable 显示 Seminar · 可能为选修 / 旁听"}
+
+  {day:"thu",start:"09:00",end:"11:00",title:"Primate Behaviour & Ecology",code:"ANTH0060",category:"elective",meta:"选修 · Seminar"},
+  {day:"thu",start:"14:00",end:"16:00",title:"Primate Behaviour & Ecology",code:"ANTH0060",category:"elective",meta:"选修 · Lecture"},
+
+  {day:"fri",start:"09:00",end:"10:00",title:"Anthropological Methods",code:"ANTH0130",category:"core",meta:"必修 · Lecture"},
+  {day:"fri",start:"10:00",end:"12:00",title:"Anthropological Methods",code:"ANTH0130",category:"pending",meta:"Seminar option / allocation 待确认"},
+  {day:"fri",start:"12:00",end:"14:00",title:"Anthropological Methods",code:"ANTH0130",category:"pending",meta:"Alternative seminar option / allocation 待确认"},
+  {day:"fri",start:"15:00",end:"17:00",title:"Entrepreneurship in a Global Context",code:"MSIN0060",category:"entrepreneurship",meta:"Seminar Group 2"}
 ];
 
 const colors = {
@@ -67,7 +72,20 @@ function buildGrid(){
     const col=document.createElement("div");
     col.className="day-col"; col.dataset.day=d.key;
     col.style.gridColumn=String(i+2); col.style.gridRow="2";
-    events.filter(e=>e.day===d.key).forEach(e=>col.appendChild(eventEl(e)));
+
+    const dayEvents = events.filter(e=>e.day===d.key);
+    dayEvents.forEach((e,index)=>{
+      const overlaps = dayEvents.filter(x => x !== e && !(minutes(x.end) <= minutes(e.start) || minutes(x.start) >= minutes(e.end)));
+      const el = eventEl(e);
+      if(overlaps.length){
+        const group = [e,...overlaps].sort((a,b)=>a.category.localeCompare(b.category));
+        const idx = group.findIndex(x=>x===e);
+        const width = 100/group.length;
+        el.style.left = `calc(${idx*width}% + 5px)`;
+        el.style.right = `calc(${100-(idx+1)*width}% + 5px)`;
+      }
+      col.appendChild(el);
+    });
     grid.appendChild(col);
   });
   applyFilter();
@@ -108,8 +126,7 @@ function buildAgenda(){
 
 function applyFilter(){
   document.querySelectorAll("[data-category]").forEach(el=>{
-    const show=currentFilter==="all" || el.dataset.category===currentFilter ||
-      (currentFilter==="audit" && el.dataset.category==="pending");
+    const show=currentFilter==="all" || el.dataset.category===currentFilter;
     el.style.display=show?"":"none";
   });
 }
