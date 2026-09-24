@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#f5f2ec" />
+  <title>UCL Term 1 Timetable · 2026/27</title>
+  <link rel="stylesheet" href="./timetable.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">UCL · MSc Social & Cultural Anthropology</p>
+      <h1>Term 1 Timetable</h1>
+      <p class="sub">2026/27 · programme + entrepreneurship + audit</p>
+    </div>
+    <div class="term-badge">TERM 1</div>
+  </header>
+
+  <main>
+    <section class="toolbar" aria-label="课程筛选">
+      <button class="chip active" data-filter="all">全部</button>
+      <button class="chip" data-filter="core"><span class="dot core"></span>必修</button>
+      <button class="chip" data-filter="elective"><span class="dot elective"></span>选修</button>
+      <button class="chip" data-filter="entrepreneurship"><span class="dot entrepreneurship"></span>Entrepreneurship</button>
+      <button class="chip" data-filter="audit"><span class="dot audit"></span>旁听</button>
+      <button class="chip" data-filter="seminar"><span class="dot seminar"></span>系内 Seminar</button>
+      <button class="chip" data-filter="pending"><span class="dot pending"></span>待确认 / Clash</button>
+    </section>
+
+    <section class="layout">
+      <div class="calendar-card">
+        <div class="section-head">
+          <div>
+            <p class="kicker">WEEK VIEW</p>
+            <h2>每周时间表</h2>
+          </div>
+          <div class="view-switch">
+            <button class="view-btn active" data-view="grid">周视图</button>
+            <button class="view-btn" data-view="agenda">列表</button>
+          </div>
+        </div>
+
+        <div id="gridView" class="calendar-scroll">
+          <div id="calendarGrid" class="calendar-grid" aria-label="Weekly timetable"></div>
+        </div>
+        <div id="agendaView" class="agenda hidden" aria-label="Agenda timetable"></div>
+
+        <div class="calendar-note">
+          <strong>说明</strong>
+          <span>截图里有几块只显示 “Room name withheld / Clash”，课程名被截掉，所以我先保留为待确认时段，避免把课程硬猜错。</span>
+        </div>
+      </div>
+
+      <aside class="side">
+        <section class="panel">
+          <p class="kicker">PROGRAMME</p>
+          <h3>人类学主课</h3>
+          <div class="module-list">
+            <div class="module-row"><span class="swatch core"></span><div><b>ANTH0127 · Critical Issues</b><small>必修 · Tue 14:00–17:00</small></div></div>
+            <div class="module-row"><span class="swatch core"></span><div><b>ANTH0130 · Method in Ethnography</b><small>必修 · Fri lecture + seminar allocation</small></div></div>
+            <div class="module-row"><span class="swatch core"></span><div><b>ANTH0145 · Dissertation</b><small>必修 · 无固定每周课时</small></div></div>
+            <div class="module-row"><span class="swatch elective"></span><div><b>ANTH0060 · Primate Behaviour & Ecology</b><small>选修 · Thu 09:00–11:00 & 14:00–16:00</small></div></div>
+            <div class="module-row muted"><span class="swatch elective"></span><div><b>ANTH0095 · Psychological Anthropology</b><small>计划选修 · 当前截图未能确认具体时段</small></div></div>
+            <div class="module-row muted"><span class="swatch elective"></span><div><b>ANTH0210 · Multispecies Ethnography</b><small>计划选修 · 当前截图未能确认具体时段</small></div></div>
+          </div>
+        </section>
+
+        <section class="panel amber">
+          <p class="kicker">ENTREPRENEURSHIP</p>
+          <h3>创业 / Innovation</h3>
+          <div class="feature-card">
+            <b>Explore Your Entrepreneurial Idea · BaseKX</b>
+            <p>Wed 17:00–19:00</p>
+            <small>28 Oct · 4 Nov · 11 Nov · 18 Nov only</small>
+          </div>
+          <div class="feature-card soft">
+            <b>MSIN0060 · Entrepreneurship in a Global Context</b>
+            <p>旁听申请中</p>
+            <small>具体 lecture / seminar 时段待确认后加入主网格。</small>
+          </div>
+        </section>
+
+        <section class="panel violet">
+          <p class="kicker">AUDIT</p>
+          <h3>旁听课程</h3>
+          <div class="module-list compact">
+            <div class="module-row"><span class="swatch audit"></span><div><b>GEOL0044 · Oceans, Life and Climate</b><small>Term 1 · 时段待与 NetTable 对应</small></div></div>
+            <div class="module-row"><span class="swatch audit"></span><div><b>PHIL0215 · Foundations of Buddhist Philosophy</b><small>Term 1 · 时段待与 NetTable 对应</small></div></div>
+            <div class="module-row"><span class="swatch audit"></span><div><b>MSIN0060 · Entrepreneurship in a Global Context</b><small>Term 1 · audit permission pending</small></div></div>
+          </div>
+        </section>
+      </aside>
+    </section>
+
+    <section class="status-strip">
+      <div><strong>已明确</strong><span>Critical Issues · Social Anthropology Seminars · Primate Behaviour & Ecology · Method in Ethnography</span></div>
+      <div><strong>待确认</strong><span>4 个 NetTable 时段课程名 + Methods seminar group allocation + MSIN0060 audit permission</span></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Built from your UCL Calendar + NetTable screenshots · 24 Sep 2026</span>
+    <a href="./index.html">返回 Master Tracker</a>
+  </footer>
+
+  <script src="./timetable.js"></script>
+</body>
+</html>
